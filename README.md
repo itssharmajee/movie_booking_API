@@ -23,9 +23,44 @@ A RESTful backend service for an online movie ticket booking system. This API al
 
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB (Mongoose)  
-- **Authentication:** JWT  
+- **Authentication:** JWT
+- **Passport hashing:** bcryptjs  
 - **API Testing:** Postman  
 
 ---
 
 ## 📂 Project Structure
+
+- src/
+    - models
+    - controllers
+    - middlewares
+    - routes
+    - configs -> all config releted
+- .env
+- server.js
+- .gitignore
+- package.json
+
+---
+
+##  .env sample
+- PORT
+- MONGO_URI
+
+--- 
+
+### Creating a movie route
+POST -- `/api/v1/movies`
+### List out all movie route
+GET -- `/api/v1/movies`
+### Get a particular movie route
+GET -- `/api/v1/movies/:movie_id`
+### Get a movie based on name route
+GET -- `/api/v1/movies ?name=some_name`
+### Delete a particular movie route
+DELETE -- `/api/v1/movies/:movie_id`
+### Update a particular movie route
+PUT -- `/api/v1/movies/:movie_id`
+
+---
