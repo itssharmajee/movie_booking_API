@@ -1,4 +1,5 @@
 import { Movie } from "../models/movie.model.js"
+import { errorBodyResponse, successBodyResponse } from "../utils/response.js";
 
 
 /**
@@ -17,10 +18,7 @@ export const createMovie = async (req, res) => {
     } = req.body;
 
     if (!name || !description || !casts || !trailerUrl || !language || !releaseDate) {
-        return res.status(400).json({
-            success: false,
-            message: "All required fields must be provided",
-        });
+        return res.status(400).json({ ...errorBodyResponse, message: "All required fields must be provided" });
     }
 
     try {
@@ -28,20 +26,10 @@ export const createMovie = async (req, res) => {
             name, description, casts, trailerUrl, language, releaseDate
         })
 
-        return res.status(201).json({
-            success: true,
-            message: "Successfully Created Movie",
-            error: {},
-            data: movie
-        })
+        return res.status(201).json({ ...successBodyResponse, data: movie, message: "Successfully created" });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            success: false,
-            error: err,
-            data: {},
-            message: "Something went wrong"
-        })
+        return res.status(500).json(errorBodyResponse);
 
     }
 }
@@ -51,26 +39,16 @@ export const deleteMovie = async (req, res) => {
         const { id } = req.params;
         const movie = await Movie.findByIdAndDelete(id);
         if (!movie) {
-            return res.status(404).json({
-                success: false,
-                message: "Movie does not exist",
-                error: {}
-            });
+            return res.status(404).json({ ...errorBodyResponse, message: "Movie does not exist" });
         }
         return res.status(200).json({
-            success: true,
-            error: {},
+            ...successBodyResponse,
             message: "Successfully deleted movie",
             data: movie
         })
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            success: false,
-            message: "Something went wrong",
-            error: err,
-            data: {}
-        })
+        return res.status(500).json(errorBodyResponse)
 
     }
 }
@@ -83,24 +61,13 @@ export const getMovie = async (req, res) => {
 
         if (!movie) {
             return res.status(404).json({
-                success: false,
-                message: "Movie does not exists",
-                error: {}
+                ...errorBodyResponse,
+                message: "Movie does not exists"
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "data fetched successfully",
-            data: movie,
-            error: {}
-        });
+        return res.status(200).json({ ...successBodyResponse, data: movie });
     } catch (err) {
-        return res.status(500).json({
-            success: false,
-            message: "Something went wrong",
-            data: {},
-            error: err
-        })
+        return res.status(500).json(errorBodyResponse)
     }
 }
