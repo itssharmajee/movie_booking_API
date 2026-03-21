@@ -4,6 +4,7 @@ const movieSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true,
+        minLength:[2, "name must be of 2 and more characters"]
     },
     description:{
         type:String,
