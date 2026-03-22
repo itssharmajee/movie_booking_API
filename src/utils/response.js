@@ -1,12 +1,12 @@
 export const successBodyResponse = {
-    data:{},
     success:true,
+    message:"Successfully fectched data",
     error:{},
-    message:"Successfully fectched data"
+    data:{},
 }
 export const errorBodyResponse = {
-    data:{},
     success:false,
-    error:{},
-    message:"Something went wrong"
+    message:"Something went wrong",
+    data:{},
+    error:{}
 }

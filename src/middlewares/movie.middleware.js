@@ -8,40 +8,59 @@ export const validateMovieCreateRequest = async (req, res, next) => {
         releaseDate
     } = req.body;
 
-    const errors = [];
     const errorResponse = {
         success: false,
         message: "",
         error: "Bad Request || Malformed Request"
-    }
+    };
+
+    // Name
     if (!name) {
-        errors.push({ ...errorResponse, message: "Movie name is required" });
+        return res.status(400).json({
+            ...errorResponse,
+            message: "Movie name is required"
+        });
     }
 
+    // Description
     if (!description) {
-        errors.push({ ...errorResponse, message: "Description is required" });
+        return res.status(400).json({
+            ...errorResponse,
+            message: "Description is required"
+        });
     }
 
-    if (!casts || casts.length === 0 || !(casts instanceof Array)) {
-        errors.push({ ...errorResponse, message: "At least one cast member is required" });
+    // Casts
+    if (!casts || !(casts instanceof Array) || casts.length === 0) {
+        return res.status(400).json({
+            ...errorResponse,
+            message: "At least one cast member is required"
+        });
     }
 
+    // Trailer URL
     if (!trailerUrl) {
-        errors.push({ ...errorResponse, message: "Trailer URL is required" });
+        return res.status(400).json({
+            ...errorResponse,
+            message: "Trailer URL is required"
+        });
     }
 
+    // Language
     if (!language) {
-        errors.push({ ...errorResponse, message: "Language is required" });
+        return res.status(400).json({
+            ...errorResponse,
+            message: "Language is required"
+        });
     }
 
+    // Release Date
     if (!releaseDate) {
-        errors.push({ ...errorResponse, message: "Release date is required" });
+        return res.status(400).json({
+            ...errorResponse,
+            message: "Release date is required"
+        });
     }
 
-    if (errors.length > 0) {
-        return res.status(400).json({ errors }
-        );
-    }
-
-    next()
-}
+    next();
+};
